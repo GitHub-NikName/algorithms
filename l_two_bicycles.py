@@ -5,27 +5,29 @@ from typing import Tuple
 
 class Pig:
     def __init__(self, n=None, arr=None, s=None):
-        self.n = n or int(input())
-        self.arr = arr or list(map(int, input().split()))
-        self.s = s or int(input())
+        self.__n = n or int(input())
+        self.__arr = arr or list(map(int, input().split()))
+        self.__s = s or int(input())
 
     def binary_search(self, s: int, left: int, right: int) -> int:
-        if self.arr[-1] < s:
+        if self.__arr[-1] < s:
             return -1
-        if right <= left:
+        if self.__arr[left] >= s:
             return left + 1
+        # if right <= left:
+        #     return left + 1
         mid = (left + right) // 2
-        if self.arr[mid] < s:
+        if self.__arr[mid] < s:
             return self.binary_search(s, mid + 1, right)
         else:
             return self.binary_search(s, left, mid)
 
     @property
     def one_two_bicycles(self) -> Tuple[int, int]:
-        one = self.binary_search(self.s, 0, self.n)
+        one = self.binary_search(self.__s, 0, self.__n)
         if one == -1:
             return -1, -1
-        two = self.binary_search(self.s << 1, one, self.n)
+        two = self.binary_search(self.__s << 1, one, self.__n)
         return one, two
 
 
