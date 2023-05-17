@@ -1,6 +1,6 @@
-# id: 87159648
+# id: 87182366
 
-from typing import Tuple, List
+from typing import Tuple
 
 
 class Member:
@@ -10,23 +10,15 @@ class Member:
         self.fine: int = int(fine)
 
     def __lt__(self, other):
-        obj_1 = (- self.task, self.fine, self.login)
-        obj_2 = (- other.task, other.fine, other.login)
-        return obj_1 < obj_2
+        self_obj = (- self.task, self.fine, self.login)
+        other_obj = (- other.task, other.fine, other.login)
+        return self_obj < other_obj
 
     def __gt__(self, other):
-        obj_1 = (- self.task, self.fine, self.login)
-        obj_2 = (- other.task, other.fine, other.login)
-        return obj_1 > obj_2
+        return other.__lt__(self)
 
     def __str__(self):
         return self.login
-
-
-def input_data() -> Tuple[int, List[Member]]:
-    n = int(input())
-    arr = [Member(*input().split()) for _ in range(n)]
-    return n, arr
 
 
 def partition(arr: list, low: int, high: int) -> Tuple[int, int]:
@@ -52,11 +44,8 @@ def quicksort(arr: list, low: int, high: int) -> None:
         quicksort(arr, left, high)
 
 
-def main() -> None:
-    n, arr = input_data()
-    quicksort(arr, 0, n - 1)
-    print(*arr, sep='\n')
-
-
 if __name__ == '__main__':
-    main()
+    length = int(input())
+    array = [Member(*input().split()) for _ in range(length)]
+    quicksort(array, 0, length - 1)
+    print(*array, sep='\n')
